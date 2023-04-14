@@ -1,0 +1,46 @@
+﻿@model IEnumerable<TeamMember>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Name)</th>
+            <th>
+                @Html.DisplayNameFor(model => model.Birthday)
+            </th>
+            <th>@Html.DisplayNameFor(model => model.Address)</th>
+            <th>
+                @Html.DisplayNameFor(model => model.ZipCode)
+            </th>
+            <th>@Html.DisplayNameFor(model => model.City)</th>
+            <th>
+                @Html.DisplayNameFor(model => model.NIF)
+            </th>
+            <th>@Html.DisplayNameFor(model => model.WorkRoleID)</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (TeamMember tm in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => tm.Name)</td>
+                <td>@Html.DisplayFor(modelItem => tm.Birthday)</td>
+                <td>@Html.DisplayFor(modelItem => tm.Address)</td>
+                <td>@Html.DisplayFor(modelItem => tm.ZipCode)</td>
+                <td>@Html.DisplayFor(modelItem => tm.City)</td>
+                <td>@Html.DisplayFor(modelItem => tm.NIF)</td>
+                <td>@Html.DisplayFor(modelItem => tm.WorkRole.Name)</td>
+            </tr>
+        }
+    </tbody>
+
+</table>
