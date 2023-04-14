@@ -1,13 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.CodeAnalysis;
+using System.ComponentModel.DataAnnotations;
 
 namespace CursoMOD129.Models
 {
-    // Code First - Entity Framework - ORM -> Object Relational Mapper
-    public class Client
+    public class TeamMember
     {
         public int ID { get; set; }
 
-
+        [Display(Name = "Full Name")]
         [StringLength(255)]
         [Required]
         public string Name { get; set; }
@@ -16,11 +16,11 @@ namespace CursoMOD129.Models
         [Required]
         public DateTime Birthday { get; set; }
 
-
         [StringLength(100)]
         [Required]
         public string Address { get; set; }
 
+        [Display(Name = "Zip Code")]
         [StringLength(20)]
         [Required]
         public string ZipCode { get; set; }
@@ -28,15 +28,18 @@ namespace CursoMOD129.Models
         [StringLength(50)]
         [Required]
         public string City { get; set; }
-        
+
         [StringLength(255)]
         [Required]
         public string NIF { get; set; }
 
-        [StringLength(255)]
-        public string? HealthCareNumber { get; set; }
+        [Display(Name = "Work Role")]
+        [Required]
+        public int WorkRoleID { get; set; }
 
-        
+        public WorkRole WorkRole {get; set; }
 
+
+        public Specialty? Specialty { get; set; }
     }
 }
