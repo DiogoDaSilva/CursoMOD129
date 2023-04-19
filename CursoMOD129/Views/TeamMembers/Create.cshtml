@@ -56,6 +56,20 @@
                 <span asp-validation-for="WorkRoleID" class="text-danger"></span>
             </div>
 
+            <div id="form-group-specialty" class="form-group">
+                <label asp-for="Specialty" class="control-label"></label>
+                <select asp-for="Specialty" class="form-control" asp-items="Html.GetEnumSelectList<Specialty>()">
+                    <option value="">Does not have</option>
+                </select>
+                <span asp-validation-for="Specialty" class="text-danger"></span>
+
+                @if (ViewBag.IsSpecialtyValidError != null)
+                {
+                    <p>@(ViewBag.IsSpecialtyValidError)</p>
+                }
+
+            </div>
+
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
@@ -68,4 +82,38 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script type="text/javascript" on-content-loaded="true">
+        var medicWorkRoleID = @(ViewData["MedicWorkRoleID"]);
+
+        $("select#WorkRoleID").change((e) => {
+            console.log($("select#WorkRoleID").val());
+
+
+            let selectedWorkRoleID = $("select#WorkRoleID").val();
+
+            var formGroupSpecialty = $("#form-group-specialty");
+
+            if(selectedWorkRoleID == medicWorkRoleID)
+            {
+                $("select#Specialty").val("@((int)Specialty.Generalist)");
+                formGroupSpecialty.css('visibility', 'visible');
+            }
+            else 
+            {
+                $("select#Specialty").val(null);
+                formGroupSpecialty.css('visibility', 'hidden');
+            }
+        });
+
+        @* Initialization of Specialty as Generalist*@
+        $("select#Specialty").val("@((int)Specialty.Generalist)");
+
+
+
+    </script>
 }
+
+
+
+

@@ -5,6 +5,6 @@
         Generalist = 1,
         Orthodontist = 2,
         OralSurgery = 3,
-
+        Implanthologist = 4,
     }
 }

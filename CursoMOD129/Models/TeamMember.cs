@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+﻿using CursoMOD129.Data;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis;
 using System.ComponentModel.DataAnnotations;
 
@@ -43,5 +45,20 @@ namespace CursoMOD129.Models
 
 
         public Specialty? Specialty { get; set; }
+
+
+        public bool IsSpecialtyValid(ApplicationDbContext context)
+        {
+            WorkRole medicWorkRole = context.WorkRoles.First(wr => wr.Name == "Medic");
+
+            // Se não for médico, então a specialty tem de ser null
+            if (this.WorkRoleID != medicWorkRole.ID)
+            {
+                return this.Specialty == null;
+            }
+
+            // Se for médico, então a specialty tem de estar preenchida (diferente de null)
+            return this.Specialty != null;
+        }
     }
 }
