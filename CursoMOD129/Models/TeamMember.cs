@@ -40,6 +40,7 @@ namespace CursoMOD129.Models
         [Required]
         public int WorkRoleID { get; set; }
 
+        // Navigation Property
         [ValidateNever]
         public WorkRole WorkRole {get; set; }
 

@@ -1,0 +1,66 @@
+﻿@model CursoMOD129.Models.Client
+
+<h1>Delete</h1>
+
+<h4>Client</h4>
+
+<h3 class="text-danger">Are you sure you want to delete this Client?</h3>
+
+<hr />
+
+
+<div class="row">
+    <div class="col-md-4">
+
+        <form asp-action="Delete">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" disabled />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Birthday" class="control-label"></label>
+                <input asp-for="Birthday" class="form-control" disabled />
+                <span asp-validation-for="Birthday" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Address" class="control-label"></label>
+                <input asp-for="Address" class="form-control" disabled />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="City" class="control-label"></label>
+                <input asp-for="City" class="form-control" disabled />
+                <span asp-validation-for="City" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ZipCode" class="control-label"></label>
+                <input asp-for="ZipCode" class="form-control" disabled />
+                <span asp-validation-for="ZipCode" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="NIF" class="control-label"></label>
+                <input asp-for="NIF" class="form-control" disabled />
+                <span asp-validation-for="NIF" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="HealthCareNumber" class="control-label"></label>
+                <input asp-for="HealthCareNumber" class="form-control" disabled />
+                <span asp-validation-for="HealthCareNumber" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Delete" class="btn btn-danger float-end" />
+            </div>
+        </form>
+    </div>
+</div>

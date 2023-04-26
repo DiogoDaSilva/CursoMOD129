@@ -16,13 +16,13 @@ namespace CursoMOD129.Models
         [Required]
         public DateTime Birthday { get; set; }
 
-
         [StringLength(100)]
         [Required]
         public string Address { get; set; }
 
         [StringLength(20)]
         [Required]
+        [Display(Name = "Zip Code")]
         public string ZipCode { get; set; }
 
         [StringLength(50)]
@@ -34,9 +34,7 @@ namespace CursoMOD129.Models
         public string NIF { get; set; }
 
         [StringLength(255)]
+        [Display(Name = "Health Care Number")]
         public string? HealthCareNumber { get; set; }
-
-        
-
     }
 }

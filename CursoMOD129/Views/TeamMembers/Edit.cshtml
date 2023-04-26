@@ -1,0 +1,120 @@
+﻿@model CursoMOD129.Models.TeamMember
+
+<h1>Edit</h1>
+
+<h4>Team Member</h4>
+
+<hr />
+
+
+<div class="row">
+    <div class="col-md-4">
+
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Birthday" class="control-label"></label>
+                <input asp-for="Birthday" class="form-control" />
+                <span asp-validation-for="Birthday" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Address" class="control-label"></label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="City" class="control-label"></label>
+                <input asp-for="City" class="form-control" />
+                <span asp-validation-for="City" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ZipCode" class="control-label"></label>
+                <input asp-for="ZipCode" class="form-control" />
+                <span asp-validation-for="ZipCode" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="NIF" class="control-label"></label>
+                <input asp-for="NIF" class="form-control" />
+                <span asp-validation-for="NIF" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="WorkRoleID" class="control-label"></label>
+                <select asp-for="WorkRoleID" class="form-control" asp-items="ViewBag.WorkRoleID"></select>
+                <span asp-validation-for="WorkRoleID" class="text-danger"></span>
+            </div>
+
+            <div id="form-group-specialty" class="form-group">
+                <label asp-for="Specialty" class="control-label"></label>
+                <select asp-for="Specialty" class="form-control" asp-items="Html.GetEnumSelectList<Specialty>()">
+                    <option value="">Does not have</option>
+                </select>
+                <span asp-validation-for="Specialty" class="text-danger"></span>
+
+                @if (ViewBag.IsSpecialtyValidError != null)
+                {
+                    <p>@(ViewBag.IsSpecialtyValidError)</p>
+                }
+
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Edit" class="btn btn-primary" />
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script type="text/javascript" on-content-loaded="true">
+        var medicWorkRoleID = @(ViewData["MedicWorkRoleID"]);
+        var teamMemberWorkRoleID = @(Model.WorkRoleID);
+        var formGroupSpecialty = $("#form-group-specialty");
+
+        $("select#WorkRoleID").change((e) => {
+            console.log($("select#WorkRoleID").val());
+            
+            let selectedWorkRoleID = $("select#WorkRoleID").val();
+
+            if (selectedWorkRoleID == medicWorkRoleID) {
+                $("select#Specialty").val("@((int)Specialty.Generalist)");
+                formGroupSpecialty.css('visibility', 'visible');
+            }
+            else {
+                $("select#Specialty").val(null);
+                formGroupSpecialty.css('visibility', 'hidden');
+            }
+        });
+
+        if (teamMemberWorkRoleID == medicWorkRoleID) {
+            formGroupSpecialty.css('visibility', 'visible');
+        }
+        else
+        {
+            formGroupSpecialty.css('visibility', 'hidden');
+        }
+
+    </script>
+}
+
+
+
+
+

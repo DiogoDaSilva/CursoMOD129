@@ -25,6 +25,7 @@
                 @Html.DisplayNameFor(model => model.NIF)
             </th>
             <th>@Html.DisplayNameFor(model => model.WorkRoleID)</th>
+            <th>@Html.DisplayNameFor(model => model.Specialty)</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -39,8 +40,12 @@
                 <td>@Html.DisplayFor(modelItem => tm.ZipCode)</td>
                 <td>@Html.DisplayFor(modelItem => tm.City)</td>
                 <td>@Html.DisplayFor(modelItem => tm.NIF)</td>
-                <td>@Html.DisplayFor(modelItem => tm.WorkRoleID)</td>
-                <td><a asp-action="Edit" asp-route-id="@tm.ID">Edit</a></td>
+                <td>@Html.DisplayFor(modelItem => tm.WorkRole.Name)</td>
+                <td>@Html.DisplayFor(modelItem => tm.Specialty)</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@tm.ID">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@tm.ID">Delete</a>
+                </td>
             </tr>
         }
     </tbody>
