@@ -4,6 +4,7 @@ using CursoMOD129.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CursoMOD129.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230426211923_Appointment_model_created")]
+    partial class Appointment_model_created
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -59,7 +62,7 @@ namespace CursoMOD129.Data.Migrations
 
                     b.HasIndex("MedicID");
 
-                    b.ToTable("Appointments", (string)null);
+                    b.ToTable("Appointments");
                 });
 
             modelBuilder.Entity("CursoMOD129.Models.Client", b =>
@@ -104,7 +107,7 @@ namespace CursoMOD129.Data.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Clients", (string)null);
+                    b.ToTable("Clients");
                 });
 
             modelBuilder.Entity("CursoMOD129.Models.TeamMember", b =>
@@ -153,7 +156,7 @@ namespace CursoMOD129.Data.Migrations
 
                     b.HasIndex("WorkRoleID");
 
-                    b.ToTable("TeamMembers", (string)null);
+                    b.ToTable("TeamMembers");
                 });
 
             modelBuilder.Entity("CursoMOD129.Models.WorkRole", b =>
@@ -170,7 +173,7 @@ namespace CursoMOD129.Data.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("WorkRoles", (string)null);
+                    b.ToTable("WorkRoles");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
