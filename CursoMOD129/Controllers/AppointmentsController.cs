@@ -102,6 +102,79 @@ namespace CursoMOD129.Controllers
 
 
 
+        // GET: Appointments/Delete/id
+        public IActionResult Delete(int id)
+        {
+            Appointment? appointment = _context.Appointments.Find(id);
+
+            if (appointment == null)
+            {
+                return NotFound();
+            }
+
+            SetupAppointments();
+
+            return View(appointment);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public IActionResult DeleteConfirmed(int id)
+        {
+            Appointment? deletingAppointment = _context.Appointments.Find(id);
+
+            if (deletingAppointment == null)
+            {
+                return NotFound();
+            }
+
+            _context.Appointments.Remove(deletingAppointment);
+            _context.SaveChanges();
+
+            return RedirectToAction(nameof(Index));
+        }
+
+
+        // GET: Appointments/MedicAppointmentsHistory/medicID
+        public IActionResult MedicAppointmentsHistory(int id)
+        {
+            TeamMember? medic = _context.TeamMembers.Find(id);
+            if (medic == null)
+            {
+                return NotFound();
+            }
+
+            ViewData["MedicName"] = medic.Name;
+
+            var appointmentsHistory = _context.Appointments
+                .Include(ap => ap.Client)
+                .Where(ap => ap.MedicID == id)
+                .Where(ap => ap.Date < DateTime.Now)
+                .ToList();
+
+            return View(appointmentsHistory);
+        }
+
+        // GET: Appointments/MedicAppointmentsScheduled/medicID
+        public IActionResult MedicAppointmentsScheduled(int id)
+        {
+            TeamMember? medic = _context.TeamMembers.Find(id);
+            if (medic == null)
+            {
+                return NotFound();
+            }
+
+            ViewData["MedicName"] = medic.Name;
+
+            var appointmentsScheduled = _context.Appointments
+                .Include(ap => ap.Client)
+                .Where(ap => ap.MedicID == id)
+                .Where(ap => ap.Date >= DateTime.Now)
+                .ToList();
+
+            return View("MedicAppointmentsHistory", appointmentsScheduled);
+        }
+
+
 
         private void SetupAppointments()
         {

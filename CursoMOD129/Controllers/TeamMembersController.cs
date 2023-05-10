@@ -23,20 +23,20 @@ namespace CursoMOD129.Controllers
                 .Include(tm => tm.WorkRole)
                 .ToList();
 
+            SetupMedicWorkRoleID();
+
             return View(teamMembers);
         }
 
         // Get: TeamMembers/Create
         public IActionResult Create()
         {
-            ViewData["WorkRoleID"] = new SelectList(_context.WorkRoles, "ID", "Name");
-
-            WorkRole medicWorkRole = _context.WorkRoles.First(wr => wr.Name == "Medic"); // SelectList * top(1) from WorkRoles where Name = "Medic"
-            ViewData["MedicWorkRoleID"] = medicWorkRole.ID;
+            SetupTeamMember();
 
             return View();
         }
 
+        
 
         [HttpPost]
         public IActionResult Create(TeamMember newTeamMember)
@@ -69,9 +69,7 @@ namespace CursoMOD129.Controllers
                 return NotFound();
             }
 
-            ViewData["WorkRoleID"] = new SelectList(_context.WorkRoles, "ID", "Name");
-            WorkRole medicWorkRole = _context.WorkRoles.First(wr => wr.Name == "Medic"); // SelectList * top(1) from WorkRoles where Name = "Medic"
-            ViewData["MedicWorkRoleID"] = medicWorkRole.ID;
+            SetupTeamMember();
 
             return View(teamMember);
         }
@@ -91,9 +89,7 @@ namespace CursoMOD129.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            ViewData["WorkRoleID"] = new SelectList(_context.WorkRoles, "ID", "Name");
-            WorkRole medicWorkRole = _context.WorkRoles.First(wr => wr.Name == "Medic"); // SelectList * top(1) from WorkRoles where Name = "Medic"
-            ViewData["MedicWorkRoleID"] = medicWorkRole.ID;
+            SetupTeamMember();
 
             return View(editingTeamMember);
         }
@@ -108,9 +104,7 @@ namespace CursoMOD129.Controllers
                 return NotFound();
             }
 
-            ViewData["WorkRoleID"] = new SelectList(_context.WorkRoles, "ID", "Name");
-            WorkRole medicWorkRole = _context.WorkRoles.First(wr => wr.Name == "Medic");
-            ViewData["MedicWorkRoleID"] = medicWorkRole.ID;
+            SetupTeamMember();
 
             return View(teamMember);
         }
@@ -127,6 +121,20 @@ namespace CursoMOD129.Controllers
             }
 
             return RedirectToAction(nameof(Index));
+        }
+
+
+
+        private void SetupTeamMember()
+        {
+            ViewData["WorkRoleID"] = new SelectList(_context.WorkRoles, "ID", "Name");
+            SetupMedicWorkRoleID();
+        }
+
+        private void SetupMedicWorkRoleID()
+        {
+            WorkRole medicWorkRole = _context.WorkRoles.First(wr => wr.Name == "Medic"); // SelectList * top(1) from WorkRoles where Name = "Medic"
+            ViewData["MedicWorkRoleID"] = medicWorkRole.ID;
         }
     }
 }

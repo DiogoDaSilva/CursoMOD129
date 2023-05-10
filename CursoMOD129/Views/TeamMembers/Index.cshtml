@@ -45,6 +45,14 @@
                 <td>
                     <a asp-action="Edit" asp-route-id="@tm.ID">Edit</a>
                     <a asp-action="Delete" asp-route-id="@tm.ID">Delete</a>
+                    @if (tm.WorkRoleID == ViewBag.MedicWorkRoleID)
+                    {
+                        <a asp-controller="Appointments" asp-action="MedicAppointmentsHistory"
+                            asp-route-id="@tm.ID">Appointments History</a>
+                        <a asp-controller="Appointments" asp-action="MedicAppointmentsScheduled"
+                   asp-route-id="@tm.ID">Appointments Scheduled</a>
+                    }
+                    
                 </td>
             </tr>
         }

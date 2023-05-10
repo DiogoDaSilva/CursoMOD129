@@ -1,0 +1,38 @@
+﻿@model CursoMOD129.Models.Appointment
+
+<h1>Delete</h1>
+
+<h4>Appointment</h4>
+
+<h3 class="text-danger">Are you sure you want to delete this?</h3>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-4">
+
+        <form asp-action="Delete" class="crud-form">
+            <partial name="Shared/_form" />
+
+            <div class="form-group">
+                <input type="submit" value="Delete" class="btn btn-danger float-end" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script type="text/javascript" on-content-loaded="true">
+        $(document).ready( () => {
+            console.log('Ready');
+
+            $('form.crud-form input.form-control').prop('disabled', true);
+            $('form.crud-form input[type="checkbox"].form-check-input').prop('disabled', true);
+            $('form.crud-form select.form-control').prop('disabled', true);
+        });
+    </script>
+}
