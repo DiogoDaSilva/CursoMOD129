@@ -163,6 +163,9 @@ namespace CursoMOD129.Controllers
                 return NotFound();
             }
 
+
+
+
             ViewData["MedicName"] = medic.Name;
 
             var appointmentsScheduled = _context.Appointments
