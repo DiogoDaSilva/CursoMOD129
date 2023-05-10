@@ -12,6 +12,10 @@
     <a asp-action="Create">Create New</a>
 </p>
 
+<p>
+    <a asp-action="TodaysAppointments" class="btn btn-primary">Check today's Appointments (@(DateTime.Now.ToShortDateString()))</a>
+</p>
+
 <table class="table">
     <thead>
         <tr>

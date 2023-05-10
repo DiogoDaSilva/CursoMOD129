@@ -175,6 +175,19 @@ namespace CursoMOD129.Controllers
         }
 
 
+        // GET: Appointments/TodaysAppointments
+        public IActionResult TodaysAppointments()
+        {
+            var todaysAppointments = _context.Appointments
+                 .Include(ap => ap.Client)
+                 .Include(ap => ap.Medic)
+                .Where(ap => ap.Date.Date == DateTime.Now.Date)
+                .ToList();
+
+            return View(todaysAppointments);
+        }
+
+
 
         private void SetupAppointments()
         {
