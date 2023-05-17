@@ -71,6 +71,7 @@ Html
 
             columns.Add(Model => Html.ActionLink("Edit", "Edit", new { id = Model.ID }));
             columns.Add(Model => Html.ActionLink("Delete", "Delete", new { id = Model.ID }));
+            columns.Add(Model => Html.ActionLink("Send E-mail", "SendEmail", new { id = Model.ID }));
 
         })
         .Filterable()

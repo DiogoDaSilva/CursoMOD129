@@ -47,6 +47,11 @@ namespace CursoMOD129.Models
 
         public Specialty? Specialty { get; set; }
 
+        [StringLength(255)]
+        [Display(Name = "E-mail")]
+        [Required]
+        public string Email { get; set; }
+
 
         public bool IsSpecialtyValid(ApplicationDbContext context)
         {

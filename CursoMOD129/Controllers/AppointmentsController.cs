@@ -1,5 +1,6 @@
 ﻿using CursoMOD129.Data;
 using CursoMOD129.Models;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -9,10 +10,12 @@ namespace CursoMOD129.Controllers
     public class AppointmentsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IEmailSender _emailSender;
 
-        public AppointmentsController(ApplicationDbContext context)
+        public AppointmentsController(ApplicationDbContext context, IEmailSender emailSender)
         {
             _context = context;
+            _emailSender = emailSender;
         }
 
 
@@ -188,6 +191,33 @@ namespace CursoMOD129.Controllers
                 .ToList();
 
             return View(todaysAppointments);
+        }
+
+
+        // GET: Appointments/SendEmail
+        // id is AppointmentID
+        public IActionResult SendEmail(int id)
+        {
+            Appointment? appointment = _context
+                                            .Appointments
+                                            .Include(ap => ap.Client)
+                                            .Include(ap => ap.Medic)
+                                            .First(ap => ap.ID == id);
+            
+            if (appointment == null)
+            {
+                return NotFound();
+            }
+
+
+            string clientEmail = appointment.Client.Email;
+            string subject = "Do not forget you Today's Appointment";
+            string htmlMessage = $"Today, you have an appointment with" +
+                          $" Medic: {appointment.Medic.Name} at: {appointment.Time:hh:mm}";
+
+            _emailSender.SendEmailAsync(clientEmail, subject, htmlMessage);
+
+            return RedirectToAction(nameof(TodaysAppointments));
         }
 
 

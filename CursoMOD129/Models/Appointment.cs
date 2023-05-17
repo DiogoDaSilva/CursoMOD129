@@ -24,6 +24,8 @@ namespace CursoMOD129.Models
         public int ClientID { get; set; }
 
         [ValidateNever]
+        // FOREIGN KEY
+        // Add INCLUDE
         public Client Client { get; set; }
 
         [Required]
@@ -31,6 +33,8 @@ namespace CursoMOD129.Models
         public int MedicID { get; set; }
 
         [ValidateNever]
+        // FOREIGN KEY
+        // ADD INCLUDE
         public TeamMember Medic { get; set; }
 
 
