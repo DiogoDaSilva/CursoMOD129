@@ -1,8 +1,14 @@
+using CursoMOD129;
 using CursoMOD129.Data;
 using CursoMOD129.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using NToastNotify;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,7 +20,43 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
-builder.Services.AddControllersWithViews();
+//builder.Services.AddControllersWithViews();
+
+
+builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+
+const string defaultCulture = "pt";
+
+CultureInfo ptCI = new CultureInfo(defaultCulture);
+
+var supportedCultures = new[]
+{
+    ptCI,
+    new CultureInfo("en"),
+    new CultureInfo("es"),
+    new CultureInfo("da")
+};
+
+builder.Services.Configure<RequestLocalizationOptions>(options =>
+{
+    options.DefaultRequestCulture = new RequestCulture(defaultCulture);
+    options.SupportedCultures = supportedCultures;
+    options.SupportedUICultures = supportedCultures;
+});
+
+builder.Services
+    .AddMvc()
+    .AddNToastNotifyToastr(new ToastrOptions()
+    {
+        ProgressBar = true,
+        PositionClass = ToastPositions.TopRight
+    })
+    .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+    .AddDataAnnotationsLocalization(options =>
+    {
+        options.DataAnnotationLocalizerProvider = (type, factory) => factory.Create(typeof(Resource));
+    });
+
 
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 
@@ -39,6 +81,12 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.UseRequestLocalization(
+    app.Services.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value
+);
+
+app.UseNToastNotify();
 
 app.MapControllerRoute(
     name: "default",

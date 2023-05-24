@@ -1,9 +1,12 @@
-﻿using CursoMOD129.Data;
+﻿using Azure.Core;
+using CursoMOD129.Data;
 using CursoMOD129.Models;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Text;
+using static CursoMOD129.CursoMOD129Constants;
 
 namespace CursoMOD129.Controllers
 {
@@ -193,6 +196,30 @@ namespace CursoMOD129.Controllers
             return View(todaysAppointments);
         }
 
+        // GET: Appointments/TomorrowsAppointments
+        public IActionResult TomorrowsAppointments()
+        {
+            var tomorrowsAppointments = _context.Appointments
+                    .Include(ap => ap.Client)
+                    .Include(ap => ap.Medic)
+                    .Where(ap => ap.Date.Date == DateTime.Today.AddDays(1))
+                    .ToList();
+
+            return View(tomorrowsAppointments);
+        }
+
+        // GET: Appointments/NextWeeksAppointments
+        public IActionResult NextWeeksAppointments()
+        {
+            var nextweeksAppointments = _context.Appointments
+                    .Include(ap => ap.Client)
+                    .Include(ap => ap.Medic)
+                    .Where(ap => ap.Date.Date >= DateTime.Today.AddDays(1) && ap.Date.Date < DateTime.Today.AddDays(8))
+                    .ToList();
+
+            return View(nextweeksAppointments);
+        }
+
 
         // GET: Appointments/SendEmail
         // id is AppointmentID
@@ -219,6 +246,79 @@ namespace CursoMOD129.Controllers
 
             return RedirectToAction(nameof(TodaysAppointments));
         }
+
+        // GET: Appointments/SendTomorrowsEmails
+        public IActionResult SendTomorrowsEmails()
+        {
+            ICollection<Appointment> tomorrowsAppointments = _context
+                                            .Appointments
+                                            .Include(ap => ap.Client)
+                                            .Include(ap => ap.Medic)
+                                            .Where(ap => ap.Date.Date == DateTime.Today.AddDays(1))
+                                            .ToList();
+
+            if (tomorrowsAppointments.Count == 0)
+            {
+                return NotFound();
+            }
+
+            string subject = "Do not forget you Tomorrow's Appointment";
+            string path = Directory.GetCurrentDirectory();
+            string template = System.IO.File.ReadAllText(
+                Path.Combine(path, EMAIL.EMAIL_TEMPLATES_FOLDER, EMAIL.TOMORROW_APPOINTMENT_EMAIL_TEMPLATE));
+
+            foreach (Appointment ap in tomorrowsAppointments)
+            {
+                string clientEmail = ap.Client.Email;
+                
+                StringBuilder body = new StringBuilder(template);
+                body.Replace("#CLIENT_NAME", ap.Client.Name);
+                body.Replace("#MEDIC_NAME", ap.Medic.Name);
+                body.Replace("#APPOINTMENT_TIME", ap.Time.ToShortTimeString());
+
+                _emailSender.SendEmailAsync(clientEmail, subject, body.ToString());
+            }
+
+            return RedirectToAction(nameof(TodaysAppointments));
+        }
+
+
+        // GET: Appointments/SendTomorrowsEmails
+        public IActionResult SendNextWeeksEmails()
+        {
+            ICollection<Appointment> nextWeeksAppointments = _context
+                            .Appointments
+                            .Include(ap => ap.Client)
+                            .Include(ap => ap.Medic)
+                            .Where(ap => ap.Date.Date >= DateTime.Today.AddDays(1) && ap.Date.Date < DateTime.Today.AddDays(8))
+                            .ToList();
+
+            if (nextWeeksAppointments.Count == 0)
+            {
+                return NotFound();
+            }
+
+            string subject = "Do not forget you Next Week's Appointment";
+            string path = Directory.GetCurrentDirectory();
+            string template = System.IO.File.ReadAllText(
+                Path.Combine(path, EMAIL.EMAIL_TEMPLATES_FOLDER, EMAIL.TOMORROW_APPOINTMENT_EMAIL_TEMPLATE));
+
+            foreach (Appointment ap in nextWeeksAppointments)
+            {
+                string clientEmail = ap.Client.Email;
+
+                StringBuilder body = new StringBuilder(template);
+                body.Replace("#CLIENT_NAME", ap.Client.Name);
+                body.Replace("#MEDIC_NAME", ap.Medic.Name);
+                body.Replace("#APPOINTMENT_TIME", ap.Time.ToShortTimeString());
+
+                _emailSender.SendEmailAsync(clientEmail, subject, body.ToString());
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+
+
 
 
 

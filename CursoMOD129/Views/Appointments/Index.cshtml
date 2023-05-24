@@ -16,6 +16,18 @@
     <a asp-action="TodaysAppointments" class="btn btn-primary">Check today's Appointments (@(DateTime.Now.ToShortDateString()))</a>
 </p>
 
+<p>
+    <a asp-action="TomorrowsAppointments" class="btn btn-primary">Check Tomorrow's Appointments
+                    (@(DateTime.Today.AddDays(1).ToShortDateString()))</a>
+</p>
+
+<p>
+    <a asp-action="NextWeeksAppointments" class="btn btn-primary">
+        Check Next Week's Appointments
+        (@(DateTime.Now.AddDays(1).ToShortDateString()) to @(DateTime.Now.AddDays(7).ToShortDateString()))
+    </a>
+</p>
+
 <table class="table">
     <thead>
         <tr>

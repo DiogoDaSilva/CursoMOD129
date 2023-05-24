@@ -11,10 +11,12 @@ namespace CursoMOD129.Models
         [Required]
         public string Number { get; set; }
 
+        [Display(Name = "Date")]
         [DataType(DataType.Date)]
         [Required]
         public DateTime Date { get; set; }
 
+        [Display(Name = "Time")]
         [DataType(DataType.Time)]
         [Required]
         public DateTime Time { get; set; }
@@ -37,7 +39,7 @@ namespace CursoMOD129.Models
         // ADD INCLUDE
         public TeamMember Medic { get; set; }
 
-
+        [Display(Name = "Info")]
         public string Info { get; set; }
 
         [Display(Name = "Done")]

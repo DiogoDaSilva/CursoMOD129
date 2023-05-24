@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Appointment>
+
+@{
+    string nextWeeksAppointmentsBegin = DateTime.Today.AddDays(1).ToShortDateString();
+    string nextWeeksAppointmentsEnd = DateTime.Today.AddDays(7).ToShortDateString();
+    ViewData["Title"] = $"Appointments From (${nextWeeksAppointmentsBegin}) to (${nextWeeksAppointmentsEnd})";
+}
+
+<h1>Appointments From (@(nextWeeksAppointmentsBegin)) to (@(nextWeeksAppointmentsEnd)) </h1>
+
+@(
+Html
+        .Grid(Model)
+        .Build(columns =>
+        {
+            columns.Add(Model => Model.Number).Titled("Ap. Number").Filterable(GridFilterCase.Upper);
+            columns.Add(Model => Model.Date).Titled("Date").Formatted("{0:d}").Filterable(GridFilterType.Double);
+            columns.Add(Model => Model.Time).Titled("Time").Formatted("{0:t}").Filterable(GridFilterType.Double);
+            columns.Add(Model => Model.Client.Name).Titled("Client");
+            columns.Add(Model => Model.Medic.Name).Titled("Medic");
+            columns.Add(Model => Model.Info).Titled("Info");
+
+            columns.Add(Model => Model.IsDone)
+                .RenderedAs(Model => (Model.IsDone == true ? "Yes" : "No"))
+                .UsingFilterOptions(new[]
+                {
+                    new SelectListItem{ Value = "true", Text = "Yes" },
+                    new SelectListItem{ Value = "false", Text = "No" }
+                });
+
+
+            columns.Add(Model => Html.ActionLink("Edit", "Edit", new { id = Model.ID }));
+            columns.Add(Model => Html.ActionLink("Delete", "Delete", new { id = Model.ID }));
+        })
+        .Filterable()
+        .Sortable()
+
+)
+
+<a asp-action="sendNextWeeksEmails" class="btn btn-primary">Send Next Week's Emails</a>
