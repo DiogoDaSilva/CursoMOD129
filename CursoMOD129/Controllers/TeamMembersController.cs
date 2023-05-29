@@ -1,5 +1,6 @@
 ﻿using CursoMOD129.Data;
 using CursoMOD129.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -8,6 +9,7 @@ using NToastNotify;
 
 namespace CursoMOD129.Controllers
 {
+    [Authorize]
     public class TeamMembersController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -99,7 +101,13 @@ namespace CursoMOD129.Controllers
             {
                 _context.TeamMembers.Update(editingTeamMember);
                 _context.SaveChanges();
-                
+
+
+                string message = string.Format(_sharedLocalizer["Team Member {0} successfully edited."].Value, editingTeamMember.Name);
+
+                _toastNotification.AddSuccessToastMessage(message,
+                    new ToastrOptions { Title = _sharedLocalizer["Team Member Edited Successfully"].Value });
+
                 return RedirectToAction(nameof(Index));
             }
 

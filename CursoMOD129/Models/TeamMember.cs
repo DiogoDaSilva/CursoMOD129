@@ -15,11 +15,13 @@ namespace CursoMOD129.Models
         [Required]
         public string Name { get; set; }
 
+        [Display(Name = "Birthday")]
         [DataType(DataType.Date)]
         [Required]
         public DateTime Birthday { get; set; }
 
-        [StringLength(100, MinimumLength = 5)]
+        [Display(Name = "Address")]
+        [StringLength(100, MinimumLength = 5, ErrorMessage = "The field <b>{0}</b> must be a string with a minimum length of {2} and a maximum length of {1}.")]
         [Required]
         public string Address { get; set; }
 
@@ -28,10 +30,12 @@ namespace CursoMOD129.Models
         [Required]
         public string ZipCode { get; set; }
 
+        [Display(Name = "City")]
         [StringLength(50, MinimumLength = 1)]
         [Required]
         public string City { get; set; }
 
+        [Display(Name = "VAT")]
         [StringLength(255, MinimumLength = 8)]
         [Required]
         public string NIF { get; set; }
@@ -45,6 +49,7 @@ namespace CursoMOD129.Models
         public WorkRole WorkRole {get; set; }
 
 
+        [Display(Name = "Specialty")]
         public Specialty? Specialty { get; set; }
 
         [StringLength(255)]

@@ -117,11 +117,20 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Address" xml:space="preserve">
+    <value>Morada</value>
+  </data>
   <data name="Appointment Number" xml:space="preserve">
     <value>Número da Consulta</value>
   </data>
   <data name="Appointments" xml:space="preserve">
     <value>Consultas</value>
+  </data>
+  <data name="Birthday" xml:space="preserve">
+    <value>Aniversário</value>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>Cidade</value>
   </data>
   <data name="Client" xml:space="preserve">
     <value>Cliente</value>
@@ -129,11 +138,20 @@
   <data name="Clients" xml:space="preserve">
     <value>Clientes</value>
   </data>
+  <data name="Create New" xml:space="preserve">
+    <value>Criar Novo</value>
+  </data>
   <data name="Date" xml:space="preserve">
     <value>Data</value>
   </data>
   <data name="Done" xml:space="preserve">
     <value>Realizada</value>
+  </data>
+  <data name="E-mail" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="Full Name" xml:space="preserve">
+    <value>Nome Completo</value>
   </data>
   <data name="Info" xml:space="preserve">
     <value>Observações</value>
@@ -147,16 +165,37 @@
   <data name="My first view" xml:space="preserve">
     <value>A minha primeira vista.</value>
   </data>
+  <data name="Please check the form again!" xml:space="preserve">
+    <value>Por favor, verifique os dados do formulário novamente!</value>
+  </data>
+  <data name="Specialty" xml:space="preserve">
+    <value>Especialidade</value>
+  </data>
   <data name="Specialty is not valid!" xml:space="preserve">
     <value>Especialidade inválida!</value>
   </data>
   <data name="Team Member Creation Error" xml:space="preserve">
     <value>Erro na criação do Membro da Equipa</value>
   </data>
+  <data name="Team Member {0} successfully edited." xml:space="preserve">
+    <value>O Profissional {0} foi editado com sucesso.</value>
+  </data>
   <data name="Team Members" xml:space="preserve">
     <value>Equipa</value>
   </data>
+  <data name="The field {0} must be a string with a minimum length of {2} and a maximum length of {1}." xml:space="preserve">
+    <value>O campo {0} tem de ser uma frase com tamanho mínimo de  {2} caracteres e no máximo {1} caracteres.</value>
+  </data>
   <data name="Time" xml:space="preserve">
     <value>Horas</value>
+  </data>
+  <data name="VAT" xml:space="preserve">
+    <value>NIF</value>
+  </data>
+  <data name="Work Role" xml:space="preserve">
+    <value>Função</value>
+  </data>
+  <data name="Zip Code" xml:space="preserve">
+    <value>Código Postal</value>
   </data>
 </root>

@@ -22,4 +22,10 @@
     <PackageReference Include="NToastNotify" Version="8.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\Resource.pt.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>
