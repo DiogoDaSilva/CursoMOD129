@@ -36,7 +36,7 @@
         {
             public readonly struct APP_POLICY
             {
-                public static readonly string NAME = "APP_POLICY";
+                public const string NAME = "APP_POLICY";
                 public static readonly string[] APP_POLICY_ROLES =
                 {
                     ROLES.ADMIN,
@@ -46,7 +46,7 @@
 
             public readonly struct APP_POLICY_ADMIN
             {
-                public static readonly string NAME = "APP_POLICY_ADMIN";
+                public const string NAME = "APP_POLICY_ADMIN";
                 public static readonly string[] APP_POLICY_ROLES =
                 {
                     ROLES.ADMIN
