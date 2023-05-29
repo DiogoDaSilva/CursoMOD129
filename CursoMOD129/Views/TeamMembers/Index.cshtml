@@ -27,6 +27,7 @@
             <th>@Html.DisplayNameFor(model => model.WorkRoleID)</th>
             <th>@Html.DisplayNameFor(model => model.Specialty)</th>
             <th>Actions</th>
+            <th>@SharedLocalizer["Appointments"]</th>
         </tr>
     </thead>
 
@@ -44,15 +45,20 @@
                 <td>@Html.DisplayFor(modelItem => tm.Specialty)</td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@tm.ID">Edit</a>
-                    <a asp-action="Delete" asp-route-id="@tm.ID">Delete</a>
+                    
+                    @if (User.IsInRole(CursoMOD129Constants.ROLES.ADMIN))
+                    {
+                        <a asp-action="Delete" asp-route-id="@tm.ID">Delete</a>
+                    }
+                </td>
+                <td>
                     @if (tm.WorkRoleID == ViewBag.MedicWorkRoleID)
                     {
                         <a asp-controller="Appointments" asp-action="MedicAppointmentsHistory"
-                            asp-route-id="@tm.ID">Appointments History</a>
+                   asp-route-id="@tm.ID">@SharedLocalizer["History"]</a>
                         <a asp-controller="Appointments" asp-action="MedicAppointmentsScheduled"
-                   asp-route-id="@tm.ID">Appointments Scheduled</a>
+                   asp-route-id="@tm.ID">@SharedLocalizer["Scheduled"]</a>
                     }
-                    
                 </td>
             </tr>
         }
