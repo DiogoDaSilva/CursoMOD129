@@ -58,6 +58,34 @@ namespace CursoMOD129.Data.SeedDatabase
                     },
                     CursoMOD129Constants.USERS.ADMIN.PASSWORD
                 );
+
+
+                if (result.Succeeded)
+                {
+                    dbAdmin = await userManager.FindByNameAsync(CursoMOD129Constants.USERS.ADMIN.USERNAME);
+                    await userManager.AddToRoleAsync(dbAdmin!, CursoMOD129Constants.ROLES.ADMIN);
+                }
+            }
+
+            var dbAdministrative = await userManager.FindByNameAsync(CursoMOD129Constants.USERS.ADMINISTRATIVE.USERNAME);
+
+            if (dbAdministrative == null)
+            {
+                var result = await userManager.CreateAsync(
+                    new IdentityUser
+                    {
+                        UserName = CursoMOD129Constants.USERS.ADMINISTRATIVE.USERNAME,
+                        Email = CursoMOD129Constants.USERS.ADMINISTRATIVE.USERNAME
+                    },
+                    CursoMOD129Constants.USERS.ADMINISTRATIVE.PASSWORD
+                );
+
+
+                if (result.Succeeded)
+                {
+                    dbAdministrative = await userManager.FindByNameAsync(CursoMOD129Constants.USERS.ADMINISTRATIVE.USERNAME);
+                    await userManager.AddToRoleAsync(dbAdministrative!, CursoMOD129Constants.ROLES.ADMINISTRATIVE);
+                }
             }
         }
     }

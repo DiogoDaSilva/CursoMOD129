@@ -1,6 +1,7 @@
 ﻿using Azure.Core;
 using CursoMOD129.Data;
 using CursoMOD129.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -10,6 +11,7 @@ using static CursoMOD129.CursoMOD129Constants;
 
 namespace CursoMOD129.Controllers
 {
+    [Authorize(Policy = POLICIES.APP_POLICY_ADMIN.NAME)]
     public class AppointmentsController : Controller
     {
         private readonly ApplicationDbContext _context;

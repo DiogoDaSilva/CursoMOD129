@@ -6,10 +6,11 @@ using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using NToastNotify;
+using static CursoMOD129.CursoMOD129Constants;
 
 namespace CursoMOD129.Controllers
 {
-    [Authorize]
+    [Authorize(Policy = POLICIES.APP_POLICY.NAME)]
     public class TeamMembersController : Controller
     {
         private readonly ApplicationDbContext _context;
